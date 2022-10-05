@@ -8,7 +8,7 @@
     </header>
     <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <p class="bg-gray-500">This is Dashboard</p> 
+        <p>This is Dashboard</p> 
     </div>
     </main> 
 </x-layout>

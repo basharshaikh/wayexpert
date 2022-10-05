@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+
+    <script src="https://cdn.tiny.cloud/1/4tp5jcn1stbqcbwq196ib5e9mpwwhknkpz903bch4tplcbwf/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Laravel Way Expert</title>
 </head>
 <body>
@@ -24,7 +26,7 @@
               <div class="ml-10 flex items-baseline space-x-4">
                 <a href="/" class="{{(request()->segment(1) == '') ? 'bg-gray-900' : ''}} text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
   
-                <a href="/blog" class="{{(request()->segment(1) == 'blog') ? 'bg-gray-900' : ''}} text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+                <a href="/blog" class="{{(request()->segment(1) == 'blog') ? 'bg-gray-900' : ''}} text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Manage Blog</a>
               </div>
             </div>
           </div>
@@ -83,7 +85,7 @@
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
           <a href="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
   
-          <a href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Blog</a>
+          <a href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Manage Blog</a>
         </div>
         <div class="border-t border-gray-700 pt-4 pb-3">
           <div class="flex items-center px-5">
@@ -116,5 +118,19 @@
 		{{$slot}}
   </div>
 	<x-alerts />
+
+  <script>
+    tinymce.init({
+      selector: '#description',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ]
+    });
+  </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -20,9 +21,7 @@ Route::get('/', function () {
     return view('dashboard.dashboard');
 })->middleware('auth');
 
-Route::get('/blog', function () {
-    return view('blog.blog-list');
-})->middleware('auth');
+Route::get('/blog', [BlogController::class, 'getAllBlogForUser'])->middleware('auth');
 
 // Public routes
 Route::get('/register', [UserController::class, 'registerForm'])->middleware('guest');
@@ -32,3 +31,11 @@ Route::post('/logged-in', [UserController::class, 'loggedInUser'])->middleware('
 
 // Private route
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+
+//Blog routes
+Route::get('/blog/add-new', [BlogController::class, 'addBlogForm'])->middleware('auth');
+Route::post('/blog/add-new-blog', [BlogController::class, 'addNewBlog'])->middleware('auth');
+Route::get('/blog/{blog}/edit', [BlogController::class, 'editBlogForm'])->middleware('auth');
+Route::post('/blog/{blog}/update', [BlogController::class, 'updateBlog'])->middleware('auth');
+Route::delete('/blog/{blog}/', [BlogController::class, 'destroyABlog'])->middleware('auth');
