@@ -12,12 +12,28 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // import components for rounters
 import AuthLayout from '../components/AuthLayout.vue'
+import DefaultLayout from '../components/DefaultLayout.vue'
 import Register from '../views/Register.vue'
+import Login from '../views/Login.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 
 // check store data for user token
 import store from '../store'
 const routes = [
+    {
+        path: '/',
+        redirect: '/dashboard',
+        component: DefaultLayout,
+        meta: {rquiresAuth: true},
+        children: [
+            {
+                path: '/dashboard',
+                name: 'Dashboard',
+                component: Dashboard
+            }
+        ]
+    },
     {
         path: '/auth',
         redirect: '/login',
@@ -25,11 +41,11 @@ const routes = [
         component: AuthLayout,
         meta: {isGuest: true},
         children: [
-            // {
-            //     path: '/login',
-            //     name: 'Login',
-            //     component: Login
-            // },
+            {
+                path: '/login',
+                name: 'Login',
+                component: Login
+            },
             {
                 path: '/register',
                 name: 'Register',
@@ -44,15 +60,17 @@ const router = createRouter({
     routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (to.meta.rquiresAuth && !store.state.user.token) {
-//         // redirecting to login route. alias 'Login'
-//         next({name: 'Login'});
-//     } else if (store.state.user.token && to.meta.isGuest) {
-//         next({name: 'Dashboard'});
-//     } else {
-//         next();
-//     }
-// })
+
+//
+router.beforeEach((to, from, next) => {
+    if (to.meta.rquiresAuth && !store.state.user.token) {
+        // redirecting to login route. alias 'Login'
+        next({name: 'Login'});
+    } else if (store.state.user.token && to.meta.isGuest) {
+        next({name: 'Dashboard'});
+    } else {
+        next();
+    }
+})
 
 export default router
