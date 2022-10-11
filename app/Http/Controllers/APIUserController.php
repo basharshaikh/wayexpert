@@ -44,7 +44,7 @@ class APIUserController extends Controller
 
     public function logout(Request $request)
     {
-        /** @var User $user */
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         // Revoke the token that was used to authenticate the current request...
         $user->currentAccessToken()->delete();
@@ -73,6 +73,7 @@ class APIUserController extends Controller
             ], 422);
         }
 
+        /** @var \App\Models\User $user **/
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
 
